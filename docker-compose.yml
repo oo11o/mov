@@ -1,0 +1,108 @@
+version: '3.8'
+
+networks:
+  movies:
+    name: movies
+
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: nginx.dockerfile
+    container_name: movies.nginx
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./src:/var/www/html
+      - ./nginx/logs:/var/log/nginx
+    networks:
+      - movies
+    depends_on:
+      - php
+      - postgres
+  php:
+    build:
+      context: .
+      dockerfile: php.dockerfile
+    container_name: movies.php
+    volumes:
+      - ./src:/var/www/html
+      - ./php/logs:/var/log/php
+    user: 1000:www-data
+    networks:
+      - movies
+
+#  sqlite:
+#    build:
+#      context: .
+#      dockerfile: sqlite.dockerfile
+#    container_name: api-movies.sqlite
+#    volumes:
+#      - ./sqlite:/data
+#
+
+  postgres:
+    container_name: movies.postgres
+    image: postgres
+    environment:
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: test
+      POSTGRES_DB: movies
+    volumes:
+      - ../parser-kinopoisk/docker/postgesql/data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    networks:
+      - movies
+
+  composer:
+    image: composer:latest
+    container_name: movies.composer
+    volumes:
+      - ./src:/var/www/html
+    working_dir: /var/www/html
+    user: 1000:www-data
+    networks:
+      - movies
+
+  artisan:
+    build:
+      context: .
+      dockerfile: php.dockerfile
+    container_name: movies.artisan
+    volumes:
+      - ./src:/var/www/html
+    working_dir: /var/www/html
+    entrypoint: ["php", "artisan"]
+    user: 1000:www-data
+    networks:
+      - movies
+
+  npm:
+    image: node:current-alpine
+    container_name: movies.npm
+    volumes:
+      - ./src:/var/www/html
+    working_dir: /var/www/html
+    entrypoint: [ "npm" ]
+    user: 1000:www-data
+    networks:
+      - movies
+
+#  phpunit:
+#    build:
+#      context: .
+#      dockerfile: php.dockerfile
+#    container_name: movies.phpunit
+#    volumes:
+#      - ./src:/var/www/html
+#    working_dir: /var/www/html
+#    entrypoint: [ "/var/www/html/vendor/bin/phpunit" ]
+#    user: 1000:www-data
+#    networks:
+#      - movies
+
+
+
+
