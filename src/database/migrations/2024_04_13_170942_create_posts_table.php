@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Enum\PostStatus;
+use App\Enum\PostStatusEnum;
 
 return new class extends Migration
 {
@@ -24,7 +24,7 @@ return new class extends Migration
 
             $table->foreignId('section_id')->constrained('sections');
             $table->string('slug')->unique();
-            $table->integer('status')->default(PostStatus::DRAFT);
+            $table->integer('status')->default(PostStatusEnum::DRAFT);
             $table->timestamps();
         });
     }

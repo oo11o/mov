@@ -3,9 +3,9 @@
 namespace App\Enum;
 
 /**
- * Represents the status of a section.
+ * Represents the status of a post.
  */
-enum SectionStatus: int
+enum PostStatusEnum: int
 {
     case DRAFT = 0;
     case PUBLISHED = 1;
