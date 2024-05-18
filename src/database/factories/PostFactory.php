@@ -2,8 +2,7 @@
 
 namespace Database\Factories;
 
-use App\DTO\PostDTO;
-use App\Enum\PostStatus;
+use App\Enum\PostStatusEnum;
 use App\Models\Post;
 use App\Models\Section;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -31,8 +30,8 @@ class PostFactory extends Factory
             'section_id' => $sections->random()->id,
             'slug' => $this->faker->slug(),
             'status' => $this->faker->randomElement([
-                PostStatus::DRAFT->value,
-                PostStatus::PUBLISHED->value,
+                PostStatusEnum::DRAFT->value,
+                PostStatusEnum::PUBLISHED->value,
             ]),
         ];
     }
@@ -40,14 +39,14 @@ class PostFactory extends Factory
     public function published(): self
     {
         return $this->state(fn (array $attributes) => [
-            'status' => PostStatus::PUBLISHED,
+            'status' => PostStatusEnum::PUBLISHED,
         ]);
     }
 
     public function draft(): self
     {
         return $this->state(fn (array $attributes) => [
-            'status' => PostStatus::DRAFT,
+            'status' => PostStatusEnum::DRAFT,
         ]);
     }
 
