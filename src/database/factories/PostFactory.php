@@ -49,5 +49,4 @@ class PostFactory extends Factory
             'status' => PostStatusEnum::DRAFT,
         ]);
     }
-
 }
