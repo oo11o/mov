@@ -13,5 +13,6 @@ readonly class PostDTO
         public string $content,
         public string $slug,
         public string $status,
-    ) {}
+    ) {
+    }
 }
