@@ -18,8 +18,7 @@ jobs:
 
       - name: Extract branch name
         shell: bash
-        run: echo "##[name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-        id: extract_branch
+        run: echo "branch_name=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_ENV
 
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v2.3.0
@@ -28,3 +27,14 @@ jobs:
           branch: ${{ steps.extract_branch.outputs.branch }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Pull Request
+        if: ${{ steps.commit-changes.outputs.changes_detected == 'true' }}
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: Fix styling
+          branch: ${{ env.branch_name }}
+          title: "Fix styling"
+          body: "This pull request fixes styling issues."
+          base: dev
