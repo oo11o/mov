@@ -18,15 +18,7 @@ jobs:
         with:
           args: --config=src/.php-cs-fixer.php --allow-risky=yes --allow-risky=yes
 
-      - name: Extract branch name
-        shell: bash
-        run: echo "##[name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-        id: extract_branch
-
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v2.3.0
         with:
-          commit_message: Fix styling
-          branch: ${{ steps.extract_branch.outputs.branch }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          commit_message: [PHP CS FIXER] Fix styling
