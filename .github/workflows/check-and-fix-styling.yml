@@ -1,24 +1,29 @@
-name: Check & fix styling
+name: php-cs-fixer
 
 on:
+  pull_request:
   push:
+    branches:
+      - dev
 
 jobs:
-  style:
+  php-cs-fixer:
     runs-on: ubuntu-latest
 
+    permissions:
+      # Give the default GITHUB_TOKEN write permission to commit and push the changed files back to the repository.
+      contents: write
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           ref: ${{ github.head_ref }}
 
-      - name: Fix style
+      - name: Run php-cs-fixer
         uses: docker://oskarstark/php-cs-fixer-ga
         with:
           args: --config=src/.php-cs-fixer.php --allow-risky=yes --allow-risky=yes
 
-      - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v2.3.0
+      - uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "[PHP CS FIXER] Fix styling"
+          commit_message: Apply php-cs-fixer changes
