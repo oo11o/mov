@@ -19,5 +19,6 @@ jobs:
           args: --config=src/.php-cs-fixer.php --allow-risky=yes --allow-risky=yes
 
       - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v2.3.0
         with:
-          commit_message: Apply php-cs-fixer changes
+          commit_message: [PHP CS FIXER] Fix styling
