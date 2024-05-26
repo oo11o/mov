@@ -50,7 +50,7 @@ services:
       POSTGRES_PASSWORD: test
       POSTGRES_DB: movies
     volumes:
-      - ../parser-kinopoisk/docker/postgesql/data:/var/lib/postgresql/data
+      - ../storage/data:/var/lib/postgresql/data
     ports:
       - "5433:5432"
     networks:
@@ -90,18 +90,18 @@ services:
     networks:
       - movies
 
-#  phpunit:
-#    build:
-#      context: .
-#      dockerfile: php.dockerfile
-#    container_name: movies.phpunit
-#    volumes:
-#      - ./src:/var/www/html
-#    working_dir: /var/www/html
-#    entrypoint: [ "/var/www/html/vendor/bin/phpunit" ]
-#    user: 1000:www-data
-#    networks:
-#      - movies
+  phpunit:
+    build:
+      context: .
+      dockerfile: php.dockerfile
+    container_name: movies.phpunit
+    volumes:
+      - ./src:/var/www/html
+    working_dir: /var/www/html
+    entrypoint: [ "/var/www/html/vendor/bin/phpunit" ]
+    user: 1000:www-data
+    networks:
+      - movies
 
 
 
