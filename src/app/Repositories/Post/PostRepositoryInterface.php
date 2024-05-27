@@ -18,7 +18,5 @@ interface PostRepositoryInterface
      * @return Post The post object.
      * @throws PostNotFoundException If no post is found with the given slug and section name.
      */
-
     public function findPublishedOrFail(string $slug, string $sectionName): Post;
-
 }

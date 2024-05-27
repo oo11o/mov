@@ -17,6 +17,7 @@ class PostRepository implements PostRepositoryInterface
     {
         dump($slug);
         dump($sectionName);
+
         return Post::where('slug', $slug)
             ->where('status', PostStatusEnum::PUBLISHED)
             ->whereHas('section', function ($query) use ($sectionName): void {

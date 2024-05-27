@@ -5,7 +5,6 @@ namespace Tests\Unit\Repositories;
 use App\Models\Post;
 use App\Models\Section;
 use App\Repositories\Post\PostRepository;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Tests\TestCase;
 
 class PostRepositoryTest extends TestCase
