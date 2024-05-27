@@ -39,14 +39,14 @@ class PostFactory extends Factory
     public function published(): self
     {
         return $this->state(fn (array $attributes) => [
-            'status' => PostStatusEnum::PUBLISHED,
+            'status' => PostStatusEnum::PUBLISHED->value,
         ]);
     }
 
     public function draft(): self
     {
         return $this->state(fn (array $attributes) => [
-            'status' => PostStatusEnum::DRAFT,
+            'status' => PostStatusEnum::DRAFT->value,
         ]);
     }
 }
