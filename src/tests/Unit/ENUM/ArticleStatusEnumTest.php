@@ -24,7 +24,7 @@ class ArticleStatusEnumTest extends TestCase
     private function getStatusCases(): array
     {
         return array_combine(
-            array_map(static fn($case) => $case->value, ArticleStatusEnum::cases()),
+            array_map(static fn ($case) => $case->value, ArticleStatusEnum::cases()),
             ArticleStatusEnum::cases()
         );
     }
@@ -38,7 +38,6 @@ class ArticleStatusEnumTest extends TestCase
             $this->assertSame($enum, ArticleStatusEnum::fromValue($value));
         }
     }
-
 
     /**
      * @throws ArticleStatusEnumInvalidException

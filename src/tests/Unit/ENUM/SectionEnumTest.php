@@ -24,7 +24,7 @@ class SectionEnumTest extends TestCase
     private function getStatusCases(): array
     {
         return array_combine(
-            array_map(static fn($case) => $case->value, SectionEnum::cases()),
+            array_map(static fn ($case) => $case->value, SectionEnum::cases()),
             SectionEnum::cases()
         );
     }
