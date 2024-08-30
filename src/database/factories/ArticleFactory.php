@@ -2,15 +2,15 @@
 
 namespace Database\Factories;
 
-use App\Enum\PostStatusEnum;
-use App\Models\Post;
+use App\Enum\ArticleStatusEnum;
+use App\Models\Article;
 use App\Models\Section;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<Post>
+ * @extends Factory<Article>
  */
-class PostFactory extends Factory
+class ArticleFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -30,8 +30,8 @@ class PostFactory extends Factory
             'section_id' => $sections->random()->id,
             'slug' => $this->faker->slug(),
             'status' => $this->faker->randomElement([
-                PostStatusEnum::DRAFT->value,
-                PostStatusEnum::PUBLISHED->value,
+                ArticleStatusEnum::DRAFT->value,
+                ArticleStatusEnum::PUBLISHED->value,
             ]),
         ];
     }
@@ -39,14 +39,14 @@ class PostFactory extends Factory
     public function published(): self
     {
         return $this->state(fn (array $attributes) => [
-            'status' => PostStatusEnum::PUBLISHED->value,
+            'status' => ArticleStatusEnum::PUBLISHED->value,
         ]);
     }
 
     public function draft(): self
     {
         return $this->state(fn (array $attributes) => [
-            'status' => PostStatusEnum::DRAFT->value,
+            'status' => ArticleStatusEnum::DRAFT->value,
         ]);
     }
 }

@@ -6,10 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Post extends Model
+class Article extends Model
 {
     use HasFactory;
-
     public function section(): BelongsTo
     {
         return $this->belongsTo(Section::class);
