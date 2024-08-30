@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Article extends Model
 {
     use HasFactory;
+
     public function section(): BelongsTo
     {
         return $this->belongsTo(Section::class);
