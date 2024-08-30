@@ -5,7 +5,6 @@ namespace Tests\Unit\Repositories;
 use App\Models\Article;
 use App\Models\Section;
 use App\Repositories\Article\ArticleRepository;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Tests\TestCase;
 
 class ArticleRepositoryTest extends TestCase
@@ -19,39 +18,38 @@ class ArticleRepositoryTest extends TestCase
         $this->section = Section::factory()->createSimilarSection()->create();
         $this->article = Article::factory()->published()->create([
             'section_id' => $this->section->id,
-            'slug' => 'some_slug',
+            'slug' => 'test_slug',
         ]);
     }
 
-    public function testFindArticleBySlugAndSection(): void
+    public function testFindPublishedArticleBySlugAndSectionSuccess(): void
     {
-        $foundPost = $this->articleRepository->findPublishedOrFail($this->article->slug, $this->section->slug);
-
-        $this->assertNotNull($foundPost);
-        $this->assertEquals($this->article->toArray(), $foundPost->toArray());
+        $result = $this->articleRepository->findPublishedBySlugAndSection($this->article->slug, $this->section->slug);
+        $this->assertNotNull($result);
+        $this->assertEquals($this->article->toArray(), $result->toArray());
         $this->assertDatabaseCount('articles', 1);
     }
 
-    public function testNotFindPostByFailSlug(): void
+    public function testFindPublishedBySlugAndCategoryNotFoundBySlug(): void
     {
-        $this->expectException(ModelNotFoundException::class);
-        $this->articleRepository->findPublishedOrFail('fail_slug', $this->section->slug);
+        $result = $this->articleRepository->findPublishedBySlugAndSection('non-existing-slug', $this->section->slug);
+        $this->assertNull($result);
     }
 
-    public function testNotFoundPostByFailSection(): void
+    public function testFindPublishedBySlugAndCategoryNotFoundByCategory(): void
     {
-        $this->expectException(ModelNotFoundException::class);
-        $this->articleRepository->findPublishedOrFail($this->article->slug, 'fail_section');
+        $result = $this->articleRepository->findPublishedBySlugAndSection($this->article->slug, 'non-existing-section');
+        $this->assertNull($result);
     }
 
-    public function testNotFoundDraftPost(): void
+    public function testFindPublishedBySlugAndCategoryNotFoundByStatus(): void
     {
-        $this->expectException(ModelNotFoundException::class);
         $articleDraft = Article::factory()->draft()->create([
             'section_id' => $this->section->id,
             'slug' => 'slug',
         ]);
 
-        $this->articleRepository->findPublishedOrFail($articleDraft->slug, $this->section->slug);
+        $result = $this->articleRepository->findPublishedBySlugAndSection($articleDraft->slug, $this->section->slug);
+        $this->assertNull($result);
     }
 }
