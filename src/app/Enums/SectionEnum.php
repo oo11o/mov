@@ -9,7 +9,6 @@ use App\Traits\EnumHelper;
  */
 enum SectionEnum: int
 {
-
     use EnumHelper;
 
     case SIMILAR = 1;
