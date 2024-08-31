@@ -2,8 +2,7 @@
 
 namespace Tests\Unit\ENUM;
 
-use App\Enum\SectionEnum;
-use App\Exceptions\Enum\SectionEnumInvalidException;
+use App\Enums\SectionEnum;
 use Tests\TestCase;
 
 class SectionEnumTest extends TestCase
@@ -29,23 +28,17 @@ class SectionEnumTest extends TestCase
         );
     }
 
-    /**
-     * @throws SectionEnumInvalidException
-     */
     public function testValidEnumConversion(): void
     {
         foreach ($this->statusCases as $value => $enum) {
-            $this->assertSame($enum, SectionEnum::fromValue($value));
+            $this->assertSame($enum, SectionEnum::from($value));
         }
     }
 
-    /**
-     * @throws SectionEnumInvalidException
-     */
     public function testInvalidEnumConversion(): void
     {
-        $this->expectException(SectionEnumInvalidException::class);
-        SectionEnum::fromValue(999); // Test an invalid value
+        $this->expectException(\ValueError::class);
+        SectionEnum::from(9999); // Test an invalid value
     }
 
     public function testGetValues(): void
