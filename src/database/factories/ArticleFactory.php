@@ -2,9 +2,11 @@
 
 namespace Database\Factories;
 
-use App\Enum\ArticleStatusEnum;
+use App\Enums\ArticleStatusEnum;
+use App\Enums\SectionEnum;
 use App\Models\Article;
 use App\Models\Section;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -27,12 +29,11 @@ class ArticleFactory extends Factory
             'h1' => $this->faker->sentence(4),
             'intro' => $this->faker->paragraph(),
             'content' => $this->faker->paragraph(),
-            'section_id' => $sections->random()->id,
+            'section_id' => $this->faker->randomElement(SectionEnum::getAllValues()),
             'slug' => $this->faker->slug(),
-            'status' => $this->faker->randomElement([
-                ArticleStatusEnum::DRAFT->value,
-                ArticleStatusEnum::PUBLISHED->value,
-            ]),
+            'status' => $this->faker->randomElement(ArticleStatusEnum::getAllValues()),
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
         ];
     }
 

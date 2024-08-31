@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Article;
 
-use App\Enum\ArticleStatusEnum;
+use App\Enums\ArticleStatusEnum;
 use App\Models\Article;
 
 /*
