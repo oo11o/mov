@@ -5,7 +5,6 @@ namespace Tests\Unit\DTO;
 use App\DTOs\ArticleDTO;
 use App\Enums\ArticleStatusEnum;
 use App\Enums\SectionEnum;
-use App\Exceptions\Enum\ArticleStatusEnumInvalidException;
 use App\Models\Article;
 use App\Models\Section;
 use Carbon\Carbon;
@@ -13,7 +12,6 @@ use Tests\TestCase;
 
 class ArticleDTOTest extends TestCase
 {
-
     public function testFromModelCreatesCorrectDTO(): void
     {
         // create article
@@ -65,7 +63,7 @@ class ArticleDTOTest extends TestCase
             'content' => 'Test Content',
             'slug' => 'test-slug',
             'section_id' => $section->id,
-            'status' => 99999
+            'status' => 99999,
         ]);
 
         $this->expectException(\ValueError::class);
