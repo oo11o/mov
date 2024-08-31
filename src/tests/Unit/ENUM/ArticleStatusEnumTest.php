@@ -2,8 +2,7 @@
 
 namespace Tests\Unit\ENUM;
 
-use App\Enum\ArticleStatusEnum;
-use App\Exceptions\Enum\ArticleStatusEnumInvalidException;
+use App\Enums\ArticleStatusEnum;
 use Tests\TestCase;
 
 class ArticleStatusEnumTest extends TestCase
@@ -29,23 +28,17 @@ class ArticleStatusEnumTest extends TestCase
         );
     }
 
-    /**
-     * @throws ArticleStatusEnumInvalidException
-     */
     public function testValidEnumConversion(): void
     {
         foreach ($this->statusCases as $value => $enum) {
-            $this->assertSame($enum, ArticleStatusEnum::fromValue($value));
+            $this->assertSame($enum, ArticleStatusEnum::from($value));
         }
     }
 
-    /**
-     * @throws ArticleStatusEnumInvalidException
-     */
     public function testInvalidEnumConversion(): void
     {
-        $this->expectException(ArticleStatusEnumInvalidException::class);
-        ArticleStatusEnum::fromValue(999); // Test an invalid value
+        $this->expectException(\ValueError::class);
+        ArticleStatusEnum::from(999); // Test an invalid value
     }
 
     public function testGetValues(): void
