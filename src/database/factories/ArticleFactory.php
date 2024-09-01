@@ -21,8 +21,6 @@ class ArticleFactory extends Factory
      */
     public function definition(): array
     {
-        $sections = Section::all();
-
         return [
             'title' => $this->faker->sentence(),
             'description' => $this->faker->paragraph(),
