@@ -4,8 +4,8 @@ namespace App\Providers;
 
 use App\Repositories\Article\ArticleRepository;
 use App\Repositories\Article\ArticleRepositoryInterface;
-use App\Services\SimilarService;
-use App\Services\SimilarServiceInterface;
+use App\Services\Similar\SimilarService;
+use App\Services\Similar\SimilarServiceInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
