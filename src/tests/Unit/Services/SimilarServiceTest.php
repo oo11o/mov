@@ -2,22 +2,20 @@
 
 namespace Tests\Unit\Services;
 
+use App\DTOs\ArticleDTO;
 use App\Enums\ArticleStatusEnum;
 use App\Enums\SectionEnum;
 use App\Exceptions\Article\SimilarArticleNotFoundException;
-use App\Repositories\Article\ArticleRepositoryInterface;
 use App\Models\Article;
 use App\Models\Section;
-use App\DTOs\ArticleDTO;
-use PHPUnit\Framework\MockObject\Exception;
-use Tests\TestCase;
+use App\Repositories\Article\ArticleRepositoryInterface;
 use App\Services\Similar\SimilarService;
 use Mockery;
-
+use PHPUnit\Framework\MockObject\Exception;
+use Tests\TestCase;
 
 class SimilarServiceTest extends TestCase
 {
-
     /**
      * @throws Exception
      */
@@ -30,7 +28,6 @@ class SimilarServiceTest extends TestCase
         Section::factory()->createAllSection();
     }
 
-
     public function testGetPublishedPostBySlugAndSectionReturnsDto(): void
     {
         $slug = 'slug-article';
@@ -39,7 +36,7 @@ class SimilarServiceTest extends TestCase
         $article = Article::factory()->published()->create(
             [
                 'slug' => $slug,
-                'section_id' => $sectionId
+                'section_id' => $sectionId,
             ]
         );
 

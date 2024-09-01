@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\Section;
 use App\Enums\SectionEnum;
+use App\Models\Section;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -30,7 +30,7 @@ class SectionFactory extends Factory
 
     public function createSimilarSection(): self
     {
-        return $this->state(fn() => [
+        return $this->state(fn () => [
             'id' => 1,
             'name' => 'similar',
             'slug' => 'similar',

@@ -5,7 +5,6 @@ namespace Database\Factories;
 use App\Enums\ArticleStatusEnum;
 use App\Enums\SectionEnum;
 use App\Models\Article;
-use App\Models\Section;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 

@@ -2,15 +2,15 @@
 
 namespace Tests\Feature\Services;
 
+use App\DTOs\ArticleDTO;
 use App\Enums\ArticleStatusEnum;
+use App\Enums\SectionEnum;
 use App\Exceptions\Article\SimilarArticleNotFoundException;
+use App\Models\Article;
 use App\Models\Section;
 use App\Repositories\Article\ArticleRepositoryInterface;
 use App\Services\Similar\SimilarService;
 use Tests\TestCase;
-use App\Models\Article;
-use App\Enums\SectionEnum;
-use App\DTOs\ArticleDTO;
 
 class SimilarServiceTest extends TestCase
 {
