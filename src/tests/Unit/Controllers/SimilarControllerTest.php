@@ -1,19 +1,20 @@
 <?php
 
 namespace Tests\Unit\Controllers;
+
+use App\DTOs\ArticleDTO;
 use App\Enums\SectionEnum;
 use App\Exceptions\Article\SimilarArticleNotFoundException;
 use App\Http\Controllers\SimilarController;
 use App\Models\Article;
 use App\Models\Section;
 use App\Services\Similar\SimilarService;
-use App\DTOs\ArticleDTO;
+use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
+use Mockery;
 use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tests\TestCase;
-use Illuminate\Support\Facades\Log;
-use Mockery;
 
 class SimilarControllerTest extends TestCase
 {
@@ -25,7 +26,7 @@ class SimilarControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->similarServiceMock =  Mockery::mock(SimilarService::class);
+        $this->similarServiceMock = Mockery::mock(SimilarService::class);
         $this->similarController = new SimilarController($this->similarServiceMock);
         $this->slug = 'valid-slug';
 
@@ -79,7 +80,6 @@ class SimilarControllerTest extends TestCase
         $this->similarController->show($invalidSlug);
     }
 
-
     /**
      * @throws SimilarArticleNotFoundException
      */
@@ -95,7 +95,7 @@ class SimilarControllerTest extends TestCase
             ->once()
             ->with(Mockery::pattern('/^Similar article not found by slug: ' . $this->slug .'/'));
 
-       $this->expectException(NotFoundHttpException::class);
+        $this->expectException(NotFoundHttpException::class);
         $this->similarController->show($this->slug);
 
     }
