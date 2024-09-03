@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Controllers;
 
+use App\Enums\ArticleStatusEnum;
 use App\Enums\SectionEnum;
 use App\Models\Article;
 use App\Models\Section;
@@ -17,7 +18,7 @@ class SimilarControllerTest extends TestCase
         $this->slug = 'valid-slug';
         Section::factory()->createAllSection();
 
-        $this->articles = Article::factory()->count(4)->create();
+        $this->articles = Article::factory()->count(5)->create();
         $this->articles->push(
             Article::factory()->published()->create([
                 'slug' => $this->slug,
@@ -58,6 +59,25 @@ class SimilarControllerTest extends TestCase
     {
         $this
             ->get('/similar/' . 'no article %%%  23333333333333333333333333333333333333333333333333333333333333333')
+            ->assertNotFound();
+    }
+
+    #[Test]
+    public function show_404_for_correct_slug_but_no_similar_section(): void
+    {
+        $slug = 'existing-slug';
+        $this->articles->push(
+            Article::factory()->published()->create([
+                'slug' => 'existing-slug',
+                'section_id' => SectionEnum::LIST->value, // no Similar section
+            ])
+        );
+
+        $this->assertDatabaseCount('articles', 7);
+        $this->assertDatabaseHas('articles', ['slug' => $slug, 'status' => ArticleStatusEnum::PUBLISHED->value ]);
+
+        $this
+            ->get('/similar/' . $slug)
             ->assertNotFound();
     }
 }
