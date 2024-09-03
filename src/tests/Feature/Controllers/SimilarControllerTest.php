@@ -11,7 +11,6 @@ use Tests\TestCase;
 
 class SimilarControllerTest extends TestCase
 {
-
     protected function setUp(): void
     {
         parent::setUp();
@@ -26,12 +25,13 @@ class SimilarControllerTest extends TestCase
             ])
         );
     }
+
     #[Test]
     public function show_article_by_slug(): void
     {
 
         $article = $this->articles
-            ->first(fn($item) => $item->slug === $this->slug);
+            ->first(fn ($item) => $item->slug === $this->slug);
 
         $this
             ->get('/similar/' . $this->slug)
