@@ -14,8 +14,8 @@ class SimilarService implements SimilarServiceInterface
     private string $sectionName = 'similar';
 
     public function __construct(
-        private readonly ArticleRepositoryInterface $articleRepository)
-    {
+        private readonly ArticleRepositoryInterface $articleRepository
+    ) {
     }
 
     /**
@@ -25,7 +25,7 @@ class SimilarService implements SimilarServiceInterface
     {
         $article = $this->articleRepository->findPublishedBySlugAndSection($slug, $this->sectionName);
 
-        if (!$article) {
+        if (! $article) {
             throw new SimilarArticleNotFoundException('Similar article not found with slug: ' . $slug);
         }
 
