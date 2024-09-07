@@ -1,6 +1,7 @@
 @extends('.index')
 
 @section('content')
-    <h1>{{ $post->title }}</h1>
-    <p>{{ $post->content }}</p>
+    <h1>{{ $article->h1}}</h1>
+    <p>{{ $article->intro }}</p>
+    <p>{{ $article->content }}</p>
 @endsection
