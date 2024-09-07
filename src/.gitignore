@@ -19,3 +19,7 @@ yarn-error.log
 /.vscode
 .php-cs-fixer.cache
 .cache
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
