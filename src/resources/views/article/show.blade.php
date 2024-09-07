@@ -1,4 +1,4 @@
-@extends('.index')
+@extends('article.index')
 
 @section('content')
     <h1>{{ $article->h1}}</h1>
