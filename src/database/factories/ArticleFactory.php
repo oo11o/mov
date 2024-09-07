@@ -22,7 +22,7 @@ class ArticleFactory extends Factory
     {
         return [
             'title' => $this->faker->sentence(),
-            'description' => $this->faker->paragraph(),
+            'description' => $this->faker->paragraph(1),
             'h1' => $this->faker->sentence(4),
             'intro' => $this->faker->paragraph(),
             'content' => $this->faker->paragraph(),
