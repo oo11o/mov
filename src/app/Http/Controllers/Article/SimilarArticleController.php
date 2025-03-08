@@ -6,7 +6,7 @@ use App\Exceptions\Article\SimilarArticleNotFoundException;
 use App\Services\Similar\SimilarServiceInterface;
 use Illuminate\View\View;
 
-class SimilarController extends Controller
+class SimilarArticleController extends Controller
 {
     public function __construct(private readonly SimilarServiceInterface $similarService)
     {
