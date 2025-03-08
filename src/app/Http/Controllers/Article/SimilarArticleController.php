@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Article;
 
 use App\Exceptions\Article\SimilarArticleNotFoundException;
+use App\Http\Controllers\Controller;
 use App\Services\Similar\SimilarServiceInterface;
 use Illuminate\View\View;
 
-class SimilarController extends Controller
+class SimilarArticleController extends Controller
 {
     public function __construct(private readonly SimilarServiceInterface $similarService)
     {
@@ -39,7 +40,7 @@ class SimilarController extends Controller
         }
 
         try {
-            $article = $this->similarService->getPublishedPostBySlug($slug);
+            $article = $this->similarService->getPublishedArticleBySlug($slug);
 
             return view('article.show', ['article' => $article]);
         } catch (SimilarArticleNotFoundException $e) {

@@ -45,7 +45,7 @@ class SimilarServiceTest extends TestCase
             ->with($slug, 'similar')
             ->andReturn($article);
 
-        $dto = $this->similarService->getPublishedPostBySlug($slug);
+        $dto = $this->similarService->getPublishedArticleBySlug($slug);
 
         $this->assertInstanceOf(ArticleDTO::class, $dto);
 
@@ -74,6 +74,6 @@ class SimilarServiceTest extends TestCase
 
         $this->expectException(SimilarArticleNotFoundException::class);
 
-        $this->similarService->getPublishedPostBySlug('test-slug');
+        $this->similarService->getPublishedArticleBySlug('test-slug');
     }
 }

@@ -14,5 +14,5 @@ interface SimilarServiceInterface
      * @return ArticleDTO|null The DTO representing the found post, or null if not found.
      * @throws SimilarArticleNotFoundException
      */
-    public function getPublishedPostBySlug(string $slug): ?ArticleDTO;
+    public function getPublishedArticleBySlug(string $slug): ?ArticleDTO;
 }

@@ -5,7 +5,7 @@ namespace Tests\Unit\Controllers;
 use App\DTOs\ArticleDTO;
 use App\Enums\SectionEnum;
 use App\Exceptions\Article\SimilarArticleNotFoundException;
-use App\Http\Controllers\SimilarController;
+use App\Http\Controllers\Article\SimilarArticleController;
 use App\Models\Article;
 use App\Models\Section;
 use App\Services\Similar\SimilarService;
@@ -19,7 +19,7 @@ use Tests\TestCase;
 class SimilarControllerTest extends TestCase
 {
     protected SimilarService $similarServiceMock;
-    protected SimilarController $similarController;
+    protected SimilarArticleController $similarController;
     protected string $slug;
     protected Article $article;
 
@@ -27,7 +27,7 @@ class SimilarControllerTest extends TestCase
     {
         parent::setUp();
         $this->similarServiceMock = Mockery::mock(SimilarService::class);
-        $this->similarController = new SimilarController($this->similarServiceMock);
+        $this->similarController = new SimilarArticleController($this->similarServiceMock);
         $this->slug = 'valid-slug';
 
         Section::factory()->createAllSection();
@@ -55,7 +55,7 @@ class SimilarControllerTest extends TestCase
         $articleDTO = ArticleDTO::fromModel($this->article);
 
         $this->similarServiceMock
-            ->shouldReceive('getPublishedPostBySlug')
+            ->shouldReceive('getPublishedArticleBySlug')
             ->with($this->slug)
             ->andReturn($articleDTO);
         $this->withoutExceptionHandling();
@@ -87,7 +87,7 @@ class SimilarControllerTest extends TestCase
     public function show_no_found_article_return_404(): void
     {
         $this->similarServiceMock
-            ->shouldReceive('getPublishedPostBySlug')
+            ->shouldReceive('getPublishedArticleBySlug')
             ->with($this->slug)
             ->andThrow(SimilarArticleNotFoundException::class);
 
@@ -107,7 +107,7 @@ class SimilarControllerTest extends TestCase
     public function show_unexpected_error_occurred_404(): void
     {
         $this->similarServiceMock
-            ->shouldReceive('getPublishedPostBySlug')
+            ->shouldReceive('getPublishedArticleBySlug')
             ->with($this->slug)
             ->andThrow(\UnexpectedValueException::class);
 

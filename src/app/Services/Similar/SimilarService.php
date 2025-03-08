@@ -21,7 +21,7 @@ class SimilarService implements SimilarServiceInterface
     /**
      * {@inheritdoc}
      */
-    public function getPublishedPostBySlug(string $slug): ?ArticleDTO
+    public function getPublishedArticleBySlug(string $slug): ?ArticleDTO
     {
         $article = $this->articleRepository->findPublishedBySlugAndSection($slug, $this->sectionName);
 
