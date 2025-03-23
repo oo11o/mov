@@ -35,3 +35,14 @@ public function getPostById(int $id): PostDTO
 - A controller must only handle HTTP requests and responses.
 - A controller must not contain business logic.
 - A controller must handle exceptions from services and return appropriate HTTP responses.
+
+
+## 🆎 Queue Naming Convention
+
+🔹 Methods that add tasks to the queue should start with enqueue
+
+    ✅ enqueueMovieImport() – Adds movie import to the queue.
+
+    ✅ enqueueUserNotification() – Queues a user notification.
+
+    ✅ enqueueOrderProcessing() – Queues order processing.
