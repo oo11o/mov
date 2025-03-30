@@ -21,6 +21,7 @@ services:
     depends_on:
       - php
       - postgres
+      - rabbitmq
   php:
     build:
       context: .
@@ -55,6 +56,20 @@ services:
       - "5433:5432"
     networks:
       - movies
+
+  rabbitmq:
+    image: "rabbitmq:management"
+    container_name: movies.rabbitmq
+    ports:
+      - "5672:5672"   # AMQP
+      - "15672:15672" # Web UI
+    networks:
+      - movies
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
 
   composer:
     image: composer:latest
@@ -102,6 +117,11 @@ services:
     user: 1000:www-data
     networks:
       - movies
+
+volumes:
+  rabbitmq_data:
+    driver: local
+
 
 
 
