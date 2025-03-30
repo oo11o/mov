@@ -12,6 +12,7 @@ class MovieImportResultDTO
         $this->queued = $queued;
         $this->failed = $failed;
     }
+
     public function toArray(): array
     {
         return [

@@ -1,14 +1,14 @@
 <?php
 
-use Tests\TestCase;
-use Illuminate\Support\Facades\Queue;
-use App\Services\Api\Implementations\MoviesImportService;
-use App\Jobs\MovieImportJob;
 use App\DTOs\Api\MovieImportResultDTO;
+use App\Jobs\MovieImportJob;
+use App\Services\Api\Implementations\MoviesImportService;
+use Illuminate\Support\Facades\Queue;
+use Tests\TestCase;
 
 class MoviesImportServiceTest extends TestCase
 {
-    public function testEnqueueImportMoviesAllQueued()
+    public function testEnqueueImportMoviesAllQueued(): void
     {
         Queue::fake();
 
@@ -25,7 +25,7 @@ class MoviesImportServiceTest extends TestCase
         $this->assertEquals($imdbIds, $result->queued);
     }
 
-    public function testEnqueueImportMoviesAllFailed()
+    public function testEnqueueImportMoviesAllFailed(): void
     {
         Queue::fake();
         Queue::shouldReceive('push')->andThrow(new \Exception('Queue error'));
@@ -40,25 +40,25 @@ class MoviesImportServiceTest extends TestCase
         $this->assertEquals($imdbIds, $result->failed);
     }
 
-//    public function testEnqueueImportMoviesPartialQueuedPartialFailed()
-//    {
-//        Queue::fake();
-//
-//        $service = new MoviesImportService();
-//        $imdbIds = ['tt1234567', 'tt7654321', 'tt9876543'];
-//
-//
-//        Queue::shouldReceive('push')
-//            ->once()
-//            ->andThrow(new \Exception('Queue error'));
-//
-//
-//        $result = $service->enqueueImportMovies($imdbIds);
-//
-//        $this->assertInstanceOf(MovieImportResultDTO::class, $result);
-//        $this->assertCount(2, $result->queued);
-//        $this->assertCount(1, $result->failed);
-//        $this->assertEquals(['tt7654321'], $result->failed);
-//        $this->assertEqualsCanonicalizing(['tt1234567', 'tt9876543'], $result->queued);
-//    }
+    //    public function testEnqueueImportMoviesPartialQueuedPartialFailed()
+    //    {
+    //        Queue::fake();
+    //
+    //        $service = new MoviesImportService();
+    //        $imdbIds = ['tt1234567', 'tt7654321', 'tt9876543'];
+    //
+    //
+    //        Queue::shouldReceive('push')
+    //            ->once()
+    //            ->andThrow(new \Exception('Queue error'));
+    //
+    //
+    //        $result = $service->enqueueImportMovies($imdbIds);
+    //
+    //        $this->assertInstanceOf(MovieImportResultDTO::class, $result);
+    //        $this->assertCount(2, $result->queued);
+    //        $this->assertCount(1, $result->failed);
+    //        $this->assertEquals(['tt7654321'], $result->failed);
+    //        $this->assertEqualsCanonicalizing(['tt1234567', 'tt9876543'], $result->queued);
+    //    }
 }
