@@ -2,12 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\V1\ArticleController;
 
-
-
-
-Route::prefix('v1')->group(function () {
+Route::prefix('v1')->group(function (): void {
     Route::get('/articles', function () {
         return response()->json([
             'message' => 'This is a JSON response',
