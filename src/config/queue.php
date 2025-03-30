@@ -72,6 +72,30 @@ return [
             'after_commit' => false,
         ],
 
+        'rabbitmq' => [
+            'driver' => 'rabbitmq',
+            'host' => env('RABBITMQ_HOST', 'localhost'),
+            'port' => env('RABBITMQ_PORT', 5672),
+            'username' => env('RABBITMQ_USER', 'guest'),
+            'password' => env('RABBITMQ_PASSWORD', 'guest'),
+            'vhost' => env('RABBITMQ_VHOST', '/'),
+            'exchanges' => [
+                'movie_exchange' => [
+                    'exchange' => 'movie_exchange',
+                    'queues' => [
+                        'movie_import_queue' => [
+                            'queue' => 'movie_import_queue',
+                            'routing_key' => 'movie_import',
+                        ],
+                        'movie_generate_queue' => [
+                            'queue' => 'movie_generate_queue',
+                            'routing_key' => 'movie_generate',
+                        ],
+                    ],
+                ],
+            ],
+        ],
+
     ],
 
     /*
