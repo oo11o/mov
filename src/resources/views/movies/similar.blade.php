@@ -1,7 +1,7 @@
-@extends('article.index')
+{{--@extends('article.index')--}}
 
-@section('content')
+{{--@section('content')--}}
     @foreach($movies as $movie)
-        <li>{{ $movie['title'] }} ({{ $movie['year'] }})</li>
+        <li>{{ $movie->title }} ({{ $movie->year }})</li>
     @endforeach
-@endsection
+{{--@endsection--}}
