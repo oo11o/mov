@@ -13,8 +13,8 @@ class SimilarMoviesController extends Controller
 
     public function show($slug)
     {
-        $movies = $this->similarMoviesService->getSimilarMovies($slug);
+        $article = $this->similarMoviesService->getSimilarMovies($slug);
 
-        return view('movies.similar', compact('movies'));
+        return view('movies.similar', compact('article'));
     }
 }

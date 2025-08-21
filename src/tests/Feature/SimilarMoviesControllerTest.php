@@ -6,6 +6,7 @@ use App\Services\Similar\SimilarMoviesServiceInterface;
 use PHPUnit\Framework\Attributes\Test;
 use App\DTOs\MovieDTO;
 use Tests\TestCase;
+use App\DTOs\SimilarMovieArticleDTO;
 
 class SimilarMoviesControllerTest extends TestCase
 {
@@ -18,10 +19,10 @@ class SimilarMoviesControllerTest extends TestCase
             $mock->shouldReceive('getSimilarMovies')
                 ->with('Terminator')
                 ->andReturn(
-                    new SimilarMovieArtircleDTO(
+                    new SimilarMovieArticleDTO(
                         title: 'Similar Movies: Terminator',
-                        description: 'Description of Terminator movies',
                         h1: 'Top Similar Movies',
+                        description: 'Description of Terminator movies',
                         intro: 'Here are some movies similar to Terminator',
                         movies: collect([
                             new MovieDto('Robocop', 2014),

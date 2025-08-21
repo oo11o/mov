@@ -2,12 +2,9 @@
 
 namespace App\Services\Similar;
 
-use Illuminate\Support\Collection;
+use App\DTOs\SimilarMovieArticleDTO;
 
 interface SimilarMoviesServiceInterface
 {
-    /**
-     * @return Collection<MovieDto>
-     */
-    public function getSimilarMovies(string $name): Collection;
+    public function getSimilarMovies(string $name): SimilarMovieArticleDTO;
 }

@@ -1,7 +1,24 @@
 {{--@extends('article.index')--}}
 
+    <!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{{  $article->title }}</title>
+    <meta name="description" content="{{ $article->description }}">
+</head>
 {{--@section('content')--}}
-    @foreach($movies as $movie)
-        <li>{{ $movie->title }} ({{ $movie->year }})</li>
+<body>
+<h1>{{ $article->h1 }}</h1>
+<p>
+    {{ $article->intro }}
+</p>
+@foreach($article->movies as $movie)
+    <li>{{ $movie->title }} ({{ $movie->year }})</li>
     @endforeach
-{{--@endsection--}}
+    {{--@endsection--}}
+    </div>
+</body>
+</html>
