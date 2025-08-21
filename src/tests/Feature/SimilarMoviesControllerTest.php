@@ -7,6 +7,7 @@ use PHPUnit\Framework\Attributes\Test;
 use App\DTOs\MovieDTO;
 use Tests\TestCase;
 use App\DTOs\SimilarMovieArticleDTO;
+use App\Exceptions\SimilarMovieNotFoundException;
 
 class SimilarMoviesControllerTest extends TestCase
 {
@@ -46,4 +47,20 @@ class SimilarMoviesControllerTest extends TestCase
             $response->assertSee($movie->year);
         }
     }
+
+    #[Test]
+    public function it_returns_404_if_movie_not_found(): void
+    {
+        $this->mock(SimilarMoviesServiceInterface::class, function ($mock) {
+            $mock->shouldReceive('getSimilarMovies')
+                ->with('UnknownMovie')
+                ->andThrow(SimilarMovieNotFoundException::class);
+        });
+
+        $response = $this->get('/similar/UnknownMovie');
+
+        $response->assertStatus(404);
+        $response->assertSee('Movie not found');
+    }
+
 }
