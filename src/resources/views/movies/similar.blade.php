@@ -1,24 +1,18 @@
-{{--@extends('article.index')--}}
+@extends('article.index')
 
-    <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@section('content')
+    <section id="intro">
+        <h1>{{ $article->h1 }}</h1>
+        <p>
+            {{ $article->intro }}
+        </p>
+    </section>
 
-    <title>{{  $article->title }}</title>
-    <meta name="description" content="{{ $article->description }}">
-</head>
-{{--@section('content')--}}
-<body>
-<h1>{{ $article->h1 }}</h1>
-<p>
-    {{ $article->intro }}
-</p>
-@foreach($article->movies as $movie)
-    <li>{{ $movie->title }} ({{ $movie->year }})</li>
-    @endforeach
-    {{--@endsection--}}
-    </div>
-</body>
-</html>
+    <section id="similar">
+        @foreach($article->movies as $movie)
+            <
+            <li>{{ $movie->title }} ({{ $movie->year }})</li>
+        @endforeach
+    </section>
+@endsection
+

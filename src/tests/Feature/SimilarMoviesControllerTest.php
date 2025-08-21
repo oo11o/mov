@@ -15,32 +15,35 @@ class SimilarMoviesControllerTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $this->mock(SimilarMoviesServiceInterface::class, function ($mock) {
+        $dto = new SimilarMovieArticleDTO(
+            title: 'Similar Movies: Terminator',
+            h1: 'Top Similar Movies',
+            description: 'Description of Terminator movies',
+            intro: 'Here are some movies similar to Terminator',
+            movies: collect([
+                new MovieDto('Robocop', 2014),
+                new MovieDto('Terminator 2', 2006),
+            ])
+        );
+
+        $this->mock(SimilarMoviesServiceInterface::class, function ($mock) use ($dto) {
             $mock->shouldReceive('getSimilarMovies')
                 ->with('Terminator')
-                ->andReturn(
-                    new SimilarMovieArticleDTO(
-                        title: 'Similar Movies: Terminator',
-                        h1: 'Top Similar Movies',
-                        description: 'Description of Terminator movies',
-                        intro: 'Here are some movies similar to Terminator',
-                        movies: collect([
-                            new MovieDto('Robocop', 2014),
-                            new MovieDto('Terminator 2', 2006),
-                        ])
-                    )
-                );
+                ->andReturn($dto);
         });
 
         $response = $this->get('/similar/Terminator');
 
-        $response->assertSee('Similar Movies: Terminator');
-        $response->assertSee('Description of Terminator movies');
-        $response->assertSee('Top Similar Movies');
-        $response->assertSee('Here are some movies similar to Terminator');
-
         $response->assertStatus(200);
-        $response->assertSee('Robocop');
-        $response->assertSee('Terminator 2');
+
+        $response->assertSee($dto->title);
+        $response->assertSee($dto->description);
+        $response->assertSee($dto->h1);
+        $response->assertSee($dto->intro);
+
+        foreach ($dto->movies as $movie) {
+            $response->assertSee($movie->title);
+            $response->assertSee($movie->year);
+        }
     }
 }
