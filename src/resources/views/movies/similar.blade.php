@@ -10,7 +10,6 @@
 
     <section id="similar">
         @foreach($article->movies as $movie)
-            <
             <li>{{ $movie->title }} ({{ $movie->year }})</li>
         @endforeach
     </section>

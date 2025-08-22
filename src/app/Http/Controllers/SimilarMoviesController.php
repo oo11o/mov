@@ -2,19 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Services\Similar\SimilarMoviesServiceInterface;
+use App\Exceptions\SimilarMovieNotFoundException;
+use Illuminate\View\View;
 
 class SimilarMoviesController extends Controller
 {
-    public function __construct(private SimilarMoviesServiceInterface $similarMoviesService)
+    public function __construct(private readonly SimilarMoviesServiceInterface $similarMoviesService)
     {
     }
 
-    public function show($slug)
+    public function show($slug): View
     {
-        $article = $this->similarMoviesService->getSimilarMovies($slug);
-
-        return view('movies.similar', compact('article'));
+        try {
+            $similarMovieArticle = $this->similarMoviesService->getSimilarMovies($slug);
+        } catch (SimilarMovieNotFoundException $e) {
+            abort(404);
+        }
+        return view('movies.similar', ['article' => $similarMovieArticle]);
     }
 }

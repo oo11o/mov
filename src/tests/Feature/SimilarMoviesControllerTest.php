@@ -60,7 +60,6 @@ class SimilarMoviesControllerTest extends TestCase
         $response = $this->get('/similar/UnknownMovie');
 
         $response->assertStatus(404);
-        $response->assertSee('Movie not found');
     }
 
 }
