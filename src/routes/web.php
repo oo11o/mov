@@ -7,4 +7,6 @@ Route::get('/', function () {
 });
 
 Route::get('/similar', [\App\Http\Controllers\SimilarController::class, 'index']);
-Route::get('/similar/{slug}', [\App\Http\Controllers\SimilarController::class, 'show']);
+
+//Route::get('/test', [\App\Http\Controllers\TestController::class, 'index']);
+Route::get('/similar/{slug}', [\App\Http\Controllers\SimilarMoviesController::class, 'show']);
