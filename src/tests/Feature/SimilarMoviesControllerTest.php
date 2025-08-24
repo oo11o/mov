@@ -2,12 +2,12 @@
 
 namespace Tests\Feature;
 
-use App\Services\Similar\SimilarMoviesServiceInterface;
-use PHPUnit\Framework\Attributes\Test;
 use App\DTOs\MovieDTO;
-use Tests\TestCase;
 use App\DTOs\SimilarMovieArticleDTO;
 use App\Exceptions\SimilarMovieNotFoundException;
+use App\Services\Similar\SimilarMoviesServiceInterface;
+use PHPUnit\Framework\Attributes\Test;
+use Tests\TestCase;
 
 class SimilarMoviesControllerTest extends TestCase
 {
@@ -27,7 +27,7 @@ class SimilarMoviesControllerTest extends TestCase
             ])
         );
 
-        $this->mock(SimilarMoviesServiceInterface::class, function ($mock) use ($dto) {
+        $this->mock(SimilarMoviesServiceInterface::class, function ($mock) use ($dto): void {
             $mock->shouldReceive('getSimilarMovies')
                 ->with('Terminator')
                 ->andReturn($dto);
@@ -51,7 +51,7 @@ class SimilarMoviesControllerTest extends TestCase
     #[Test]
     public function it_returns_404_if_movie_not_found(): void
     {
-        $this->mock(SimilarMoviesServiceInterface::class, function ($mock) {
+        $this->mock(SimilarMoviesServiceInterface::class, function ($mock): void {
             $mock->shouldReceive('getSimilarMovies')
                 ->with('UnknownMovie')
                 ->andThrow(SimilarMovieNotFoundException::class);
@@ -61,5 +61,4 @@ class SimilarMoviesControllerTest extends TestCase
 
         $response->assertStatus(404);
     }
-
 }
