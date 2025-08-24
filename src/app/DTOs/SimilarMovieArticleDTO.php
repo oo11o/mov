@@ -13,5 +13,6 @@ readonly class SimilarMovieArticleDTO
         public string $intro,
         /** @var Collection<MovieDto> */
         public Collection $movies,
-    ) {}
+    ) {
+    }
 }

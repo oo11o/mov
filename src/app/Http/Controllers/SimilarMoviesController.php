@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\Similar\SimilarMoviesServiceInterface;
 use App\Exceptions\SimilarMovieNotFoundException;
+use App\Services\Similar\SimilarMoviesServiceInterface;
 use Illuminate\View\View;
 
 class SimilarMoviesController extends Controller
@@ -19,6 +19,7 @@ class SimilarMoviesController extends Controller
         } catch (SimilarMovieNotFoundException $e) {
             abort(404);
         }
+
         return view('movies.similar', ['article' => $similarMovieArticle]);
     }
 }
