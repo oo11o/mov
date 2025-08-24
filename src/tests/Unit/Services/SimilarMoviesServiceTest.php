@@ -16,12 +16,18 @@ class SimilarMoviesServiceTest extends TestCase
     public function it_returns_dto_with_similar_movies(): void
     {
         $repoMock = $this->mock(SimilarMoviesRepositoryInterface::class, function ($mock) {
-            $mock->shouldReceive('findSimilarMovies')
+            $mock->shouldReceive('findSimilarMovieArticle')
                 ->with('Terminator')
-                ->andReturn(collect([
-                    new MovieDto('Robocop', 2014),
-                    new MovieDto('Terminator 2', 2006),
-                ]));
+                ->andReturn([
+                    'title' => 'Similar Movies: Terminator',
+                    'h1' => 'Top Similar Movies',
+                    'description' => 'Description of Terminator movies',
+                    'intro' => 'Here are some movies similar to Terminator',
+                    'movies' => collect(
+                        ['title' => 'Robocop', 'year' => 2014],
+                        ['title' => 'Terminator 2', 'year' => 2006],
+                    ),
+                ]);
         });
 
         $service = new SimilarMoviesService($repoMock);
@@ -37,7 +43,7 @@ class SimilarMoviesServiceTest extends TestCase
     public function it_throws_exception_when_similar_movies_are_not_found(): void
     {
         $repoMock = $this->mock(SimilarMoviesRepositoryInterface::class, function ($mock) {
-            $mock->shouldReceive('findSimilarMovies')
+            $mock->shouldReceive('findSimilarMovieArticle')
                 ->with('Unknown')
                 ->andReturn([]);
         });

@@ -4,7 +4,6 @@ namespace App\Services\Similar;
 
 use App\DTOs\SimilarMovieArticleDTO;
 use App\Repositories\SimilarMoviesRepositoryInterface;
-use function PHPUnit\Framework\isEmpty;
 use App\Exceptions\SimilarMovieNotFoundException;
 
 class SimilarMoviesService implements SimilarMoviesServiceInterface
@@ -15,17 +14,12 @@ class SimilarMoviesService implements SimilarMoviesServiceInterface
 
     public function getSimilarMovies(string $name): SimilarMovieArticleDTO
     {
-        $movies = $this->similarMoviesRepository->findSimilarMovies($name);
-        if (empty($movies)) {
+        $articleData = $this->similarMoviesRepository->findSimilarMovieArticle($name);
+
+        if (empty($articleData)) {
             throw new SimilarMovieNotFoundException();
         }
 
-        return new SimilarMovieArticleDTO(
-            title: "Similar Movies: {$name}",
-            h1: "Top Similar Movies",
-            description: "Description of {$name} movies",
-            intro: "Here are some movies similar to {$name}",
-            movies: $movies
-        );
+        return new SimilarMovieArticleDTO(...$articleData);
     }
 }
