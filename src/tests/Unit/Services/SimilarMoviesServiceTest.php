@@ -2,9 +2,13 @@
 
 namespace Tests\Unit\Services;
 
-use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
 use PHPUnit\Framework\Attributes\Test;
-use App\Services\Similar\SimilarMoviesServiceInterface;
+use App\DTOs\MovieDTO;
+use App\Repositories\SimilarMoviesRepositoryInterface;
+use App\Services\Similar\SimilarMoviesService;
+use \App\DTOs\SimilarMovieArticleDTO;
+
 class SimilarMoviesServiceTest extends TestCase
 {
     #[Test]
@@ -19,7 +23,7 @@ class SimilarMoviesServiceTest extends TestCase
                 ]));
         });
 
-        $service = new SimilarMoviesServiceTest($repoMock);
+        $service = new SimilarMoviesService($repoMock);
 
         $dto = $service->getSimilarMovies('Terminator');
 
