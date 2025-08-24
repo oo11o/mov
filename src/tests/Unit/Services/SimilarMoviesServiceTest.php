@@ -2,20 +2,19 @@
 
 namespace Tests\Unit\Services;
 
-use Tests\TestCase;
-use PHPUnit\Framework\Attributes\Test;
-use App\DTOs\MovieDTO;
-use App\Repositories\SimilarMoviesRepositoryInterface;
-use App\Services\Similar\SimilarMoviesService;
 use App\DTOs\SimilarMovieArticleDTO;
 use App\Exceptions\SimilarMovieNotFoundException;
+use App\Repositories\SimilarMoviesRepositoryInterface;
+use App\Services\Similar\SimilarMoviesService;
+use PHPUnit\Framework\Attributes\Test;
+use Tests\TestCase;
 
 class SimilarMoviesServiceTest extends TestCase
 {
     #[Test]
     public function it_returns_dto_with_similar_movies(): void
     {
-        $repoMock = $this->mock(SimilarMoviesRepositoryInterface::class, function ($mock) {
+        $repoMock = $this->mock(SimilarMoviesRepositoryInterface::class, function ($mock): void {
             $mock->shouldReceive('findSimilarMovieArticle')
                 ->with('Terminator')
                 ->andReturn([
@@ -42,7 +41,7 @@ class SimilarMoviesServiceTest extends TestCase
     #[Test]
     public function it_throws_exception_when_similar_movies_are_not_found(): void
     {
-        $repoMock = $this->mock(SimilarMoviesRepositoryInterface::class, function ($mock) {
+        $repoMock = $this->mock(SimilarMoviesRepositoryInterface::class, function ($mock): void {
             $mock->shouldReceive('findSimilarMovieArticle')
                 ->with('Unknown')
                 ->andReturn([]);
@@ -53,5 +52,4 @@ class SimilarMoviesServiceTest extends TestCase
         $service = new SimilarMoviesService($repoMock);
         $service->getSimilarMovies('Unknown');
     }
-
 }
