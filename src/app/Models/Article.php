@@ -33,4 +33,9 @@ class Article extends Model
     {
         return $this->belongsTo(Section::class);
     }
+
+    public function movies()
+    {
+        return $this->belongsToMany(Movie::class, 'article_movie');
+    }
 }
