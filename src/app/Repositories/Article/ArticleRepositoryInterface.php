@@ -18,4 +18,12 @@ interface ArticleRepositoryInterface
      * @return Article|null The article object.
      */
     public function findPublishedBySlugAndSection(string $slug, string $sectionName): ?Article;
+
+    /**
+     * Find the article by its.
+     *
+     * @param string $slug The slug of the article.
+     * @return Article|null The article object.
+     */
+    public function findBySlug(string $slug): ?Article;
 }

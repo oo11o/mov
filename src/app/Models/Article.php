@@ -22,6 +22,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property Section $section
  * @property Carbon $created_at
  * @property Carbon $updated_at
+ * @mixin IdeHelperArticle
  */
 class Article extends Model
 {

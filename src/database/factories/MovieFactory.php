@@ -18,6 +18,7 @@ class MovieFactory extends Factory
     {
         return [
             'title' => ucfirst($this->faker->words($this->faker->numberBetween(2, 4), true)),
+            'description' => $this->faker->paragraph(),
             'year' => $this->faker->numberBetween(1980, 2025),
         ];
     }
