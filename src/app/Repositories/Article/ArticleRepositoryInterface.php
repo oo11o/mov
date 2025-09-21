@@ -20,7 +20,7 @@ interface ArticleRepositoryInterface
     public function findPublishedBySlugAndSection(string $slug, string $sectionName): ?Article;
 
     /**
-     * Find the article by its.
+     * Find the article by its slug.
      *
      * @param string $slug The slug of the article.
      * @return Article|null The article object.
