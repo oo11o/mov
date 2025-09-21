@@ -22,6 +22,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property Section $section
  * @property Carbon $created_at
  * @property Carbon $updated_at
+ * @mixin IdeHelperArticle
  */
 class Article extends Model
 {
@@ -32,5 +33,10 @@ class Article extends Model
     public function section(): BelongsTo
     {
         return $this->belongsTo(Section::class);
+    }
+
+    public function movies()
+    {
+        return $this->belongsToMany(Movie::class, 'article_movie');
     }
 }

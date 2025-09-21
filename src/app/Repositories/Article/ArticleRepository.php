@@ -4,6 +4,7 @@ namespace App\Repositories\Article;
 
 use App\Enums\ArticleStatusEnum;
 use App\Models\Article;
+use App\Repositories\Article\ArticleRepositoryInterface;
 
 /*
  * Class for managing article data in a database.
@@ -20,6 +21,16 @@ class ArticleRepository implements ArticleRepositoryInterface
             ->whereHas('section', function ($query) use ($sectionName): void {
                 $query->where('slug', $sectionName);
             })
+            ->first();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findBySlug(string $slug): ?Article
+    {
+        return Article::where('slug', $slug)
+            ->with('movies')
             ->first();
     }
 }
