@@ -1,5 +1,7 @@
 ## 1️⃣ Repository Layer Rules
-- A repository **must return a model, a collection of models, or `null`**.
+- A repository **return a model or `null`** if Call findByX()
+- A repository **return a collocation or []** if Call getByX().
+
 - A repository **must not throw exceptions** if a record is not found.
 - A repository **must only interact with the database** (no business logic).
 - Query results should be **simple and optimized** for performance.
