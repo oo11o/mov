@@ -4,7 +4,6 @@ namespace App\Repositories\Article;
 
 use App\Enums\ArticleStatusEnum;
 use App\Models\Article;
-use App\Repositories\Article\ArticleRepositoryInterface;
 
 /*
  * Class for managing article data in a database.

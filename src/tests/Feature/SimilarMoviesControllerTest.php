@@ -2,50 +2,52 @@
 
 namespace Tests\Feature;
 
-use App\DTOs\MovieDTO;
-use App\DTOs\SimilarMovieArticleDTO;
 use App\Exceptions\SimilarMovieNotFoundException;
+use App\Models\Article;
+use App\Models\Movie;
+use App\Models\Section;
+use App\Services\Similar\SimilarMoviesService;
 use App\Services\Similar\SimilarMoviesServiceInterface;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class SimilarMoviesControllerTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+        //$this->SimilarMoviesService = new SimilarMoviesService();
+
+        // create article
+        $this->section = Section::factory()->createSimilarSection()->create();
+        $this->article = Article::factory()->published()->create([
+            'section_id' => $this->section->id,
+            'slug' => 'Terminator',
+            'title' => 'Article Test Title',
+            'description' => 'Article Test Description',
+        ]);
+
+        $this->movies = Movie::factory()->count(10)->create();
+        $this->article->movies()->attach($this->movies->pluck('id'));
+    }
+
     #[Test]
     public function it_shows_similar_movies_for_a_given_name(): void
     {
         $this->withoutExceptionHandling();
 
-        $dto = new SimilarMovieArticleDTO(
-            title: 'Similar Movies: Terminator',
-            h1: 'Top Similar Movies',
-            description: 'Description of Terminator movies',
-            intro: 'Here are some movies similar to Terminator',
-            movies: collect([
-                new MovieDto('Robocop', 2014),
-                new MovieDto('Terminator 2', 2006),
-            ])
-        );
-
-        $this->mock(SimilarMoviesServiceInterface::class, function ($mock) use ($dto): void {
-            $mock->shouldReceive('getSimilarMovies')
-                ->with('Terminator')
-                ->andReturn($dto);
-        });
-
         $response = $this->get('/similar/Terminator');
 
-        $response->assertStatus(200);
+        $response->assertSee('Article Test Title');
+        $response->assertSee('Article Test Description');
 
-        $response->assertSee($dto->title);
-        $response->assertSee($dto->description);
-        $response->assertSee($dto->h1);
-        $response->assertSee($dto->intro);
-
-        foreach ($dto->movies as $movie) {
+        foreach ($this->article->movies as $movie) {
             $response->assertSee($movie->title);
             $response->assertSee($movie->year);
         }
+
+        $response->assertStatus(200);
+
     }
 
     #[Test]

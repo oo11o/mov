@@ -2,3 +2,5 @@
 .log
 logs/
 /.php-cs-fixer.cache
+/src/testing.sqlite
+/identifier.sqlite
