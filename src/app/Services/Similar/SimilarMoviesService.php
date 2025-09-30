@@ -2,8 +2,8 @@
 
 namespace App\Services\Similar;
 
-use App\DTOs\SimilarMovieArticleDTO;
 use App\DTOs\MovieDTO;
+use App\DTOs\SimilarMovieArticleDTO;
 use App\Exceptions\SimilarMovieNotFoundException;
 use App\Repositories\Article\ArticleRepository;
 
@@ -11,7 +11,8 @@ class SimilarMoviesService implements SimilarMoviesServiceInterface
 {
     public function __construct(
         private readonly ArticleRepository $articleRepository,
-    ){}
+    ) {
+    }
 
     public function getSimilarMovies(string $slug): SimilarMovieArticleDTO
     {
@@ -21,7 +22,7 @@ class SimilarMoviesService implements SimilarMoviesServiceInterface
             throw new SimilarMovieNotFoundException();
         }
 
-        $moviesCollection = $article->movies->map(fn($m) => new MovieDto(
+        $moviesCollection = $article->movies->map(fn ($m) => new MovieDto(
             title: $m->title,
             year: $m->year,
             description: $m->description,

@@ -4,16 +4,13 @@ namespace Tests\Unit\Services;
 
 use App\DTOs\SimilarMovieArticleDTO;
 use App\Exceptions\SimilarMovieNotFoundException;
-use App\Models\Section;
-use App\Repositories\Article\ArticleRepository;
-use App\Repositories\Article\ArticleRepositoryInterface;
-use App\Repositories\SimilarMoviesRepositoryInterface;
-use App\Services\Similar\SimilarMoviesService;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use PHPUnit\Framework\Attributes\Test;
-use Tests\TestCase;
 use App\Models\Article;
 use App\Models\Movie;
+use App\Models\Section;
+use App\Repositories\Article\ArticleRepository;
+use App\Services\Similar\SimilarMoviesService;
+use PHPUnit\Framework\Attributes\Test;
+use Tests\TestCase;
 
 class SimilarMoviesServiceTest extends TestCase
 {
