@@ -20,12 +20,7 @@ Route::prefix('v1')->group(function (): void {
             'status' => 'success',
         ]);
     });
-    Route::post('/movies', function () {
-        return response()->json([
-            'status' => 'queued',
-            'data' => ['imdb_id' => 'tt1234567'],
-        ], 202);
-    });
+    Route::post('/movies', \App\Http\Controllers\Api\V1\MoviesController::class.'@store');
 });
 Route::prefix('v1')->group(function (): void {
     Route::get('/articles', function () {
