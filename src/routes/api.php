@@ -12,6 +12,33 @@ Route::prefix('v1')->group(function (): void {
     });
 });
 
+
+Route::prefix('v1')->group(function (): void {
+    Route::get('/movies', function () {
+        return response()->json([
+            'message' => 'This is a JSON response',
+            'status' => 'success',
+        ]);
+    });
+    Route::post('/movies', function () {
+        return response()->json([
+            'status' => 'queued',
+            'data' => ['imdb_id' => 'tt1234567'],
+        ], 202);
+    });
+});
+Route::prefix('v1')->group(function (): void {
+    Route::get('/articles', function () {
+        return response()->json([
+            'message' => 'This is a JSON response',
+            'status' => 'success',
+        ]);
+    });
+});
+
+
+
+
 //Route::get('/user', function (Request $request) {
 //    return $request->user();
 //})->middleware('auth:sanctum');
