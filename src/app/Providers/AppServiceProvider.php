@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Repositories\Article\ArticleRepository;
 use App\Repositories\Article\ArticleRepositoryInterface;
+use App\Services\Api\Contracts\MoviePublisherServiceInterface;
+use App\Services\Api\Implementations\MoviePublisherService;
 use App\Services\Similar\SimilarMoviesService;
 use App\Services\Similar\SimilarMoviesServiceInterface;
 use App\Services\Similar\SimilarService;
@@ -30,6 +32,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             SimilarMoviesServiceInterface::class,
             SimilarMoviesService::class
+        );
+
+        $this->app->bind(
+            MoviePublisherServiceInterface::class,
+            MoviePublisherService::class
         );
 
     }

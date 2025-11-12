@@ -3,10 +3,18 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Services\Api\Contracts\MoviePublisherServiceInterface;
 use Illuminate\Http\Request;
 
 class MoviesController extends Controller
 {
+
+    public function __construct(
+        private readonly MoviePublisherServiceInterface $moviePublisherService
+    )
+    {
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -22,10 +30,9 @@ class MoviesController extends Controller
     {
         $imdbId = $request->input('imdb_id');
 
-        return response()->json([
-            'status' => 'queued',
-            'data' => ['imdb_id' => $imdbId],
-        ], 202);
+        return response()->json(
+            $this->moviePublisherService->publish($imdbId),
+            202);
     }
 
     /**
