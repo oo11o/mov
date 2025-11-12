@@ -7,11 +7,10 @@ use Tests\TestCase;
 
 class MoviesControllerTest extends TestCase
 {
-
     #[Test]
     public function it_publishes_imdb_id_to_queue_and_returns_queued_status(): void
     {
-       // $mock = $this->mock(MoviePublisherService::class);
+        // $mock = $this->mock(MoviePublisherService::class);
 
         $apiVersion = env('API_VERSION', 'v1');
 
@@ -26,14 +25,14 @@ class MoviesControllerTest extends TestCase
             ]);
 
     }
-//    #[Test]
-//    public function it_returns_validation_error_if_imdb_id_is_invalid(): void
-//    {
-//        $response = $this->postJson('/api/movies', [
-//            'imdb_id' => 'invalid',
-//        ]);
-//
-//        $response->assertStatus(422)
-//            ->assertJsonValidationErrors(['imdb_id']);
-//    }
+    //    #[Test]
+    //    public function it_returns_validation_error_if_imdb_id_is_invalid(): void
+    //    {
+    //        $response = $this->postJson('/api/movies', [
+    //            'imdb_id' => 'invalid',
+    //        ]);
+    //
+    //        $response->assertStatus(422)
+    //            ->assertJsonValidationErrors(['imdb_id']);
+    //    }
 }
